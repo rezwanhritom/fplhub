@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Sign Up</title>
-    <link rel="stylesheet" href="google_signup.css">
-    <script src="google_signup.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Sign Up · FPL Hub</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="google_signup.css">
+  <script src="config.js"></script>
+  <script defer src="google_signup.js"></script>
 </head>
-<body>
-    <div class="container">
-        <h2>Complete Your Sign Up</h2>
-        <form id="signupForm" action="http://localhost/fpl_hub/google_signup.php" method="POST">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-
-            <span id="usernameError" class="error-message"></span>
-
-            <label for="fantasy_team">Fantasy Team Name:</label>
-            <input type="text" id="fantasy_team" name="fantasy_team" required>
-
-            <button type="submit" id="submitBtn" disabled>Continue to Home</button>
-        </form>
-    </div>
+<body class="auth-body">
+  <header class="site-header">
+    <a class="brand" href="homepage.html">FPL Hub</a>
+  </header>
+  <main class="auth-wrap">
+    <section class="auth-panel rise">
+      <p class="eyebrow">Google account</p>
+      <h1>Finish signup</h1>
+      <p class="muted auth-sub">Choose a username and fantasy team name to enter the hub.</p>
+      <form id="signupForm" method="POST" action="http://localhost/fpl_hub/backend/google_signup.php">
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" autocomplete="username" required>
+          <p id="usernameError" class="error"></p>
+        </div>
+        <div class="field">
+          <label for="fantasy_team">Fantasy team name</label>
+          <input type="text" id="fantasy_team" name="fantasy_team" required>
+        </div>
+        <button type="submit" class="btn btn-primary auth-submit" id="submitBtn" disabled>Continue to hub</button>
+      </form>
+    </section>
+  </main>
 </body>
 </html>

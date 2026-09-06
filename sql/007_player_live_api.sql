@@ -1,0 +1,27 @@
+-- Source API: GET /api/event/{event_id}/live/
+CREATE TABLE IF NOT EXISTS fpl_hub_player_live (
+  event_id INT UNSIGNED NOT NULL,
+  player_id INT UNSIGNED NOT NULL,
+  minutes INT NOT NULL DEFAULT 0,
+  goals INT NOT NULL DEFAULT 0,
+  assists INT NOT NULL DEFAULT 0,
+  clean_sheets INT NOT NULL DEFAULT 0,
+  goals_conceded INT NOT NULL DEFAULT 0,
+  own_goals INT NOT NULL DEFAULT 0,
+  penalties_saved INT NOT NULL DEFAULT 0,
+  penalties_missed INT NOT NULL DEFAULT 0,
+  yellow_cards INT NOT NULL DEFAULT 0,
+  red_cards INT NOT NULL DEFAULT 0,
+  saves INT NOT NULL DEFAULT 0,
+  bonus INT NOT NULL DEFAULT 0,
+  bps INT NOT NULL DEFAULT 0,
+  influence DECIMAL(8,2) NOT NULL DEFAULT 0,
+  creativity DECIMAL(8,2) NOT NULL DEFAULT 0,
+  threat DECIMAL(8,2) NOT NULL DEFAULT 0,
+  ict_index DECIMAL(8,2) NOT NULL DEFAULT 0,
+  total_points INT NOT NULL DEFAULT 0,
+  in_dreamteam TINYINT(1) NOT NULL DEFAULT 0,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (event_id, player_id),
+  KEY idx_live_player (player_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

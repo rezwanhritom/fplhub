@@ -2,8 +2,6 @@
 session_start();
 require_once 'dbconnect.php';
 
-// Remove any output before JSON
-ob_clean();
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['logged_in'])) {
@@ -13,26 +11,23 @@ if (!isset($_SESSION['logged_in'])) {
 
 try {
     $action = $_GET['action'] ?? '';
-    
+
     switch ($action) {
         case 'teams':
-            // Get unique teams
-            $stmt = $pdo->prepare("
-                SELECT DISTINCT team_name, team_id 
-                FROM fpl_hub_team_data 
+            $stmt = $pdo->query("
+                SELECT team_name, team_id
+                FROM fpl_hub_team_data
                 ORDER BY team_name ASC
             ");
-            $stmt->execute();
-            $teams = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            echo json_encode(['success' => true, 'teams' => $teams]);
+            echo json_encode(['success' => true, 'teams' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
             break;
 
         case 'search':
             $query = $_GET['query'] ?? '';
             $stmt = $pdo->prepare("
-                SELECT DISTINCT team_name, team_id 
-                FROM fpl_hub_team_data 
-                WHERE team_name LIKE :query 
+                SELECT team_name, team_id
+                FROM fpl_hub_team_data
+                WHERE team_name LIKE :query
                 ORDER BY team_name ASC
             ");
             $stmt->execute(['query' => "%$query%"]);
@@ -45,17 +40,12 @@ try {
                 throw new Exception('Team ID required');
             }
 
-            // Get team strength stats
-            $strengthStmt = $pdo->prepare("
-                SELECT * FROM fpl_hub_team_data 
-                WHERE team_id = :team_id
-            ");
+            $strengthStmt = $pdo->prepare('SELECT * FROM fpl_hub_team_data WHERE team_id = :team_id');
             $strengthStmt->execute(['team_id' => $teamId]);
             $strength = $strengthStmt->fetch(PDO::FETCH_ASSOC);
 
-            // Get match statistics
             $matchStmt = $pdo->prepare("
-                SELECT 
+                SELECT
                     SUM(CASE WHEN status = 'Done' THEN team_score ELSE 0 END) as goals_scored,
                     SUM(CASE WHEN status = 'Done' THEN opp_score ELSE 0 END) as goals_conceded,
                     SUM(CASE WHEN status = 'Done' AND result = 'Win' THEN 1 ELSE 0 END) as wins,
@@ -71,7 +61,7 @@ try {
                     SUM(CASE WHEN status = 'Done' AND ground = 'away' AND result = 'Win' THEN 1 ELSE 0 END) as away_wins,
                     SUM(CASE WHEN status = 'Done' AND ground = 'away' AND result = 'Draw' THEN 1 ELSE 0 END) as away_draws,
                     SUM(CASE WHEN status = 'Done' AND ground = 'away' AND result = 'Loss' THEN 1 ELSE 0 END) as away_losses
-                FROM fpl_hub_fixture_data 
+                FROM fpl_hub_fixture_data
                 WHERE team_id = :team_id
             ");
             $matchStmt->execute(['team_id' => $teamId]);
@@ -88,7 +78,6 @@ try {
             throw new Exception('Invalid action');
     }
 } catch (Exception $e) {
-    error_log("Error in tvst.php: " . $e->getMessage());
+    error_log('Error in tvst.php: ' . $e->getMessage());
     echo json_encode(['error' => $e->getMessage()]);
 }
-?>

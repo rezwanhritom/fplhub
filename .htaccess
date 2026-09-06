@@ -1,0 +1,12 @@
+# Serve the app from /fpl_hub on XAMPP
+DirectoryIndex index.html frontend/homepage.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /fpl_hub/
+
+  # If someone hits /fpl_hub/*.php, try backend/*.php
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{DOCUMENT_ROOT}/fpl_hub/backend/%{REQUEST_URI} -f
+  RewriteRule ^([^/]+\.php)$ backend/$1 [L]
+</IfModule>

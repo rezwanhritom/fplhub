@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } catch (Exception $e) {
         error_log("Error: " . $e->getMessage());
-        header("Location: http://localhost/fpl_hub/login.php?error=" . urlencode($e->getMessage()));
+        header("Location: http://localhost/fpl_hub/backend/login.php?error=" . urlencode($e->getMessage()));
         exit();
     }
 }

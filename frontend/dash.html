@@ -1,258 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FPL Hub - Dashboard</title>
-    <link rel="stylesheet" href="dash.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard · FPL Hub</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="dash.css">
+  <script src="config.js"></script>
+  <script defer src="dash.js"></script>
 </head>
-<body>
-    <header>
-        <div class="logo">
-            <a href="dash.html">FPL HUB</a>
-        </div>
-        <nav class="main-nav">
-            <div class="dropdown">
-                <button class="dropbtn">Compare</button>
-                <div class="dropdown-content">
-                    <a href="http://localhost/fpl_hub/frontend/stats.html">Stats</a>
-                    <a href="http://localhost/fpl_hub/frontend/stats.html">Performance</a>
-                    <a href="http://localhost/fpl_hub/frontend/pvsp.html">Player vs Player</a>
-                    <a href="http://localhost/fpl_hub/frontend/tvst.html">Team vs Team</a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <button class="dropbtn">FPL Tools</button>
-                <div class="dropdown-content">
-                    <a href="http://localhost/fpl_hub/frontend/bestteam.html">Best Team</a>
-                    <a href="http://localhost/fpl_hub/frontend/bestplayer.html">Best Player</a>
-                    <a href="../point-predictor.php">Point Predictor</a>
-                    <a href="../price-predictor.php">Price Predictor</a>
-                    <a href="../fixture-analyzer.php">Fixture Analyzer</a>
-                    <a href="../captain-predictor.php">Captain Predictor</a>
-                    <a href="../chips-analyzer.php">Chips Analyzer</a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <button class="dropbtn">Others</button>
-                <div class="dropdown-content">
-                    <a href="../transfer-planner.php">Transfer Planner</a>
-                    <a href="../fpl-calendar.php">FPL Calendar</a>
-                    <a href="../strategy-planner.php">Strategy Planner</a>
-                </div>
-            </div>
-        </nav>
-        <div class="user-profile">
-            <div class="dropdown">
-                <button class="user-icon">👤</button>
-                <div class="dropdown-content">
-                    <a href="../profile.php">Edit Profile</a>
-                    <a href="http://localhost/fpl_hub/logout.php">Logout</a>
-                </div>
-            </div>
-        </div>
-    </header>
+<body class="dash-body">
+  <header class="site-header">
+    <a class="brand" href="dash.html">FPL Hub</a>
+    <nav class="nav-links">
+      <a href="dash.html" class="active">Squad</a>
+      <a href="stats.html">Stats</a>
+      <a href="pvsp.html">Player vs Player</a>
+      <a href="tvst.html">Team vs Team</a>
+      <a href="bestplayer.html">Best Player</a>
+      <a href="bestteam.html">Best Team</a>
+    </nav>
+    <details class="user-menu">
+      <summary>Account</summary>
+      <div class="menu">
+        <a href="http://localhost/fpl_hub/backend/logout.php">Logout</a>
+      </div>
+    </details>
+  </header>
 
-    <main>
-        <div class="team-header">
-            <h1 id="team-name"></h1>
-            <span id="team-value">Team Value: £0.0M</span>
-        </div>
+  <main class="page dash-main">
+    <div class="team-header rise">
+      <div>
+        <p class="eyebrow">Your fantasy side</p>
+        <h1 id="team-name">Loading…</h1>
+      </div>
+      <div class="value-chip" id="team-value">Team value £0.0m</div>
+    </div>
 
-        <div class="pitch">
-            <div class="row gk-row">
-                <div class="player-container">
-                    <div class="player-slot gk" data-position="GKP">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="remove-player hidden">Remove</button>
-                </div>
-                <div class="player-container">
-                    <div class="player-slot gk" data-position="GKP">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="remove-player hidden">Remove</button>
-                </div>
-            </div>
-            <div class="row def-row">
-                <div class="player-container">
-                    <div class="player-slot def" data-position="DEF">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="remove-player hidden">Remove</button>
-                </div>
-                <div class="player-container">
-                    <div class="player-slot def" data-position="DEF">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="remove-player hidden">Remove</button>
-                </div>
-                <div class="player-container">
-                    <div class="player-slot def" data-position="DEF">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="remove-player hidden">Remove</button>
-                </div>
-                <div class="player-container">
-                    <div class="player-slot def" data-position="DEF">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="remove-player hidden">Remove</button>
-                </div>
-                <div class="player-container">
-                    <div class="player-slot def" data-position="DEF">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="remove-player hidden">Remove</button>
-                </div>
-            </div>
-            <div class="row mid-row">
-                <div class="player-container">
-                    <div class="player-slot mid" data-position="MID">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="remove-player hidden">Remove</button>
-                </div>
-                <div class="player-container">
-                    <div class="player-slot mid" data-position="MID">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="remove-player hidden">Remove</button>
-                </div>
-                <div class="player-container">
-                    <div class="player-slot mid" data-position="MID">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="remove-player hidden">Remove</button>
-                </div>
-                <div class="player-container">
-                    <div class="player-slot mid" data-position="MID">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="remove-player hidden">Remove</button>
-                </div>
-                <div class="player-container">
-                    <div class="player-slot mid" data-position="MID">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="remove-player hidden">Remove</button>
-                </div>
-            </div>
-            <div class="row fwd-row">
-                <div class="player-container">
-                    <div class="player-slot fwd" data-position="FOR">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class = "remove-player hidden">Remove</button>
-                </div>
-                <div class="player-container">
-                    <div class="player-slot fwd" data-position="FOR">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class = "remove-player hidden">Remove</button>
-                </div>
-                <div class="player-container">
-                    <div class="player-slot fwd" data-position="FOR">
-                        <div class="player-info hidden">
-                            <img src="http://localhost/fpl_hub/frontend/dashpicture.jpg" alt="Player" class="player-image">
-                            <div class="player-details">
-                                <div class="player-name"></div>
-                                <div class="player-stats"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class = "remove-player hidden">Remove</button>
-                </div>
-            </div>
-        </div>
+    <div class="pitch rise rise-delay-1" id="pitch">
+      <div class="row gk-row">
+        <div class="player-container"><div class="player-slot gk" data-position="GKP"><div class="player-info hidden"><div class="jersey">GK</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+        <div class="player-container"><div class="player-slot gk" data-position="GKP"><div class="player-info hidden"><div class="jersey">GK</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+      </div>
+      <div class="row def-row">
+        <div class="player-container"><div class="player-slot def" data-position="DEF"><div class="player-info hidden"><div class="jersey">DEF</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+        <div class="player-container"><div class="player-slot def" data-position="DEF"><div class="player-info hidden"><div class="jersey">DEF</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+        <div class="player-container"><div class="player-slot def" data-position="DEF"><div class="player-info hidden"><div class="jersey">DEF</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+        <div class="player-container"><div class="player-slot def" data-position="DEF"><div class="player-info hidden"><div class="jersey">DEF</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+        <div class="player-container"><div class="player-slot def" data-position="DEF"><div class="player-info hidden"><div class="jersey">DEF</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+      </div>
+      <div class="row mid-row">
+        <div class="player-container"><div class="player-slot mid" data-position="MID"><div class="player-info hidden"><div class="jersey">MID</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+        <div class="player-container"><div class="player-slot mid" data-position="MID"><div class="player-info hidden"><div class="jersey">MID</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+        <div class="player-container"><div class="player-slot mid" data-position="MID"><div class="player-info hidden"><div class="jersey">MID</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+        <div class="player-container"><div class="player-slot mid" data-position="MID"><div class="player-info hidden"><div class="jersey">MID</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+        <div class="player-container"><div class="player-slot mid" data-position="MID"><div class="player-info hidden"><div class="jersey">MID</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+      </div>
+      <div class="row fwd-row">
+        <div class="player-container"><div class="player-slot fwd" data-position="FOR"><div class="player-info hidden"><div class="jersey">FWD</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+        <div class="player-container"><div class="player-slot fwd" data-position="FOR"><div class="player-info hidden"><div class="jersey">FWD</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+        <div class="player-container"><div class="player-slot fwd" data-position="FOR"><div class="player-info hidden"><div class="jersey">FWD</div><div class="player-details"><div class="player-name"></div><div class="player-stats"></div></div></div></div><button class="remove-player hidden" type="button">Remove</button></div>
+      </div>
+    </div>
 
-        <button id="save-team" class="hidden">Save Changes</button>
-    </main>
-
-    <script src="dash.js"></script>
+    <div class="dash-actions">
+      <button id="save-team" class="btn btn-primary hidden" type="button">Save changes</button>
+      <p class="muted tip">Tap an empty slot to pick from live player data in your database.</p>
+    </div>
+  </main>
 </body>
 </html>

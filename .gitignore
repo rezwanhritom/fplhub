@@ -4,9 +4,17 @@ backend/.env
 backend/credentials.json
 backend/token.json
 backend/oauth_client_credentials.json
+backend/certs/*.pem
+!backend/certs/.gitkeep
 
 # Dependencies
 backend/vendor/
+backend/composer.phar
+backend/node_modules/
+fetcher/node_modules/
+node_modules/
+package-lock.json
+
 
 # Logs & junk
 *.log

@@ -1,87 +1,76 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const loginForm = document.getElementById("login-form");
-    const usernameInput = document.getElementById("username");
-    const passwordInput = document.getElementById("password");
-    const loginBtn = document.querySelector(".login-btn");
-    const usernameError = document.getElementById("username-error");
-    const passwordError = document.getElementById("password-error");
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('login-form');
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+  const loginBtn = document.querySelector('.auth-submit');
+  const usernameError = document.getElementById('username-error');
+  const passwordError = document.getElementById('password-error');
 
-    // Username validation on input/blur
-    function checkUsername() {
-        const username = usernameInput.value.trim();
-        loginBtn.disabled = true;
+  document.getElementById('google-login')?.addEventListener('click', () => {
+    location.href = FPLHUB.url('google_login.php');
+  });
 
-        if (!username) {
-            usernameError.textContent = "";
-            usernameError.classList.remove("show");
-            return;
+  function checkUsername() {
+    const username = usernameInput.value.trim();
+    loginBtn.disabled = true;
+    usernameError.textContent = '';
+    if (!username) return;
+
+    fetch(FPLHUB.url('check_username.php'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'username=' + encodeURIComponent(username),
+    })
+      .then((r) => r.text())
+      .then((text) => {
+        const response = text.trim();
+        if (response.includes('taken')) {
+          loginBtn.disabled = !passwordInput.value;
+        } else {
+          usernameError.textContent = 'Username does not exist';
+          loginBtn.disabled = true;
         }
+      })
+      .catch(() => {
+        usernameError.textContent = 'Could not verify username';
+      });
+  }
 
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://localhost/fpl_hub/check_username.php", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        xhr.onload = function() {
-            console.log("Response:", xhr.responseText); // Debug
-            const response = xhr.responseText.trim();
-            
-            if (response.includes("taken")) {
-                usernameError.textContent = "";
-                usernameError.classList.remove("show");
-                loginBtn.disabled = false;
-            } else {
-                usernameError.textContent = "Username does not exist";
-                usernameError.classList.add("show");
-                loginBtn.disabled = true;
-            }
-        };
-
-        xhr.send("username=" + encodeURIComponent(username));
+  function syncButton() {
+    if (usernameError.textContent) {
+      loginBtn.disabled = true;
+      return;
     }
+    loginBtn.disabled = !(usernameInput.value.trim() && passwordInput.value);
+  }
 
-    // Form submission
-    loginForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(loginForm);
-        
-        fetch("http://localhost/fpl_hub/login.php", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.text())
-        .then(text => {
-            console.log("Raw response:", text); // Debug
-            const jsonStart = text.indexOf('{');
-            const jsonText = text.slice(jsonStart);
-            return JSON.parse(jsonText);
-        })
-        .then(data => {
-            if (data.success) {
-                window.location.href = "http://localhost/fpl_hub/frontend/dash.html";
-            } else {
-                switch(data.errorType) {
-                    case "username":
-                        usernameError.textContent = "Invalid username";
-                        usernameError.classList.add("show");
-                        break;
-                    case "password":
-                        passwordError.textContent = "Invalid password";
-                        passwordError.classList.add("show");
-                        break;
-                    case "google_user":
-                        passwordError.textContent = "Please use Continue with Google button";
-                        passwordError.classList.add("show");
-                        break;
-                }
-            }
-        })
-        .catch(error => {
-            console.error("Login error:", error);
-        });
-    });
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    passwordError.textContent = '';
+    fetch(FPLHUB.url('login.php'), { method: 'POST', body: new FormData(loginForm) })
+      .then((r) => r.text())
+      .then((text) => {
+        const jsonStart = text.indexOf('{');
+        return JSON.parse(text.slice(jsonStart));
+      })
+      .then((data) => {
+        if (data.success) {
+          location.href = FPLHUB.page('dash.html');
+          return;
+        }
+        if (data.errorType === 'username') usernameError.textContent = 'Invalid username';
+        if (data.errorType === 'password') passwordError.textContent = 'Invalid password';
+        if (data.errorType === 'google_user') {
+          passwordError.textContent = 'Please use Continue with Google';
+        }
+      })
+      .catch((err) => console.error(err));
+  });
 
-    // Add event listeners
-    usernameInput.addEventListener("input", checkUsername);
-    usernameInput.addEventListener("blur", checkUsername);
+  usernameInput.addEventListener('input', () => {
+    checkUsername();
+    syncButton();
+  });
+  passwordInput.addEventListener('input', syncButton);
+  usernameInput.addEventListener('blur', checkUsername);
 });

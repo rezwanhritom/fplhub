@@ -1,78 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Best Team - FPL HUB</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="http://localhost/fpl_hub/frontend/bestteam.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Team · FPL Hub</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="bestteam.css">
+  <script src="config.js"></script>
+  <script defer src="bestteam.js"></script>
 </head>
-<body>
-    <header>
-        <div class="logo">
-            <a href="dash.html">FPL HUB</a>
-        </div>
-        <div class="user-profile">
-            <div class="dropdown">
-                <button class="user-icon">👤</button>
-                <div class="dropdown-content">
-                    <a href="../profile.php">Edit Profile</a>
-                    <a href="http://localhost/fpl_hub/logout.php">Logout</a>
-                </div>
-            </div>
-        </div>
-    </header>
+<body class="tool-body">
+  <header class="site-header">
+    <a class="brand" href="dash.html">FPL Hub</a>
+    <nav class="nav-links">
+      <a href="dash.html">Squad</a>
+      <a href="stats.html">Stats</a>
+      <a href="pvsp.html">PvP</a>
+      <a href="tvst.html">TvT</a>
+      <a href="bestplayer.html">Best Player</a>
+      <a href="bestteam.html" class="active">Best Team</a>
+    </nav>
+    <details class="user-menu">
+      <summary>Account</summary>
+      <div class="menu">
+        <a href="http://localhost/fpl_hub/backend/logout.php">Logout</a>
+      </div>
+    </details>
+  </header>
 
-    <main>
-        <div class="filters">
-            <div class="filter-group">
-                <label for="sort-by">Sort By:</label>
-                <select id="sort-by" class="filter-select">
-                    <option value="fdr">FDR</option>
-                    <option value="strength">Strength</option>
-                    <option value="strength_home">Home Strength</option>
-                    <option value="strength_away">Away Strength</option>
-                    <option value="strength_home_att">Home Attack</option>
-                    <option value="strength_away_att">Away Attack</option>
-                    <option value="strength_home_def">Home Defense</option>
-                    <option value="strength_away_def">Away Defense</option>
-                    <option value="pyfy">PYFY</option>
-                </select>
-            </div>
+  <main class="page tool-main">
+    <div class="section-head rise">
+      <div>
+        <p class="eyebrow">Schedule edge</p>
+        <h2>Best Team</h2>
+        <p>Sort clubs by upcoming fixture difficulty and strength.</p>
+      </div>
+    </div>
 
-            <div class="filter-group">
-                <label for="next-games">Next Games:</label>
-                <select id="next-games" class="filter-select">
-                    <option value="1">1 Game</option>
-                    <option value="2">2 Games</option>
-                    <option value="3">3 Games</option>
-                    <option value="4">4 Games</option>
-                    <option value="5">5 Games</option>
-                    <option value="6">6 Games</option>
-                    <option value="7">7 Games</option>
-                    <option value="8">8 Games</option>
-                    <option value="9">9 Games</option>
-                    <option value="10">10 Games</option>
-                </select>
-            </div>
+    <div class="panel rise rise-delay-1">
+      <div class="filter-bar">
+        <div class="filter-group">
+          <label for="sort-by">Sort by</label>
+          <select id="sort-by">
+            <option value="fdr">FDR</option>
+            <option value="strength">Strength</option>
+            <option value="strength_home">Home Strength</option>
+            <option value="strength_away">Away Strength</option>
+            <option value="strength_home_att">Home Attack</option>
+            <option value="strength_away_att">Away Attack</option>
+            <option value="strength_home_def">Home Defense</option>
+            <option value="strength_away_def">Away Defense</option>
+            <option value="pyfy">PYFY</option>
+          </select>
         </div>
 
-        <div class="teams-container">
-            <table class="teams-table">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Team</th>
-                        <th>Rating</th>
-                        <th>Next Fixtures</th>
-                    </tr>
-                </thead>
-                <tbody id="teams-container"></tbody>
-            </table>
-            <div id="loading" class="loading">Loading teams...</div>
+        <div class="filter-group">
+          <label for="next-games">Next games</label>
+          <select id="next-games">
+            <option value="1">1 Game</option>
+            <option value="2">2 Games</option>
+            <option value="3">3 Games</option>
+            <option value="4">4 Games</option>
+            <option value="5">5 Games</option>
+            <option value="6">6 Games</option>
+            <option value="7">7 Games</option>
+            <option value="8">8 Games</option>
+            <option value="9">9 Games</option>
+            <option value="10">10 Games</option>
+          </select>
         </div>
-    </main>
+      </div>
 
-    <script src="http://localhost/fpl_hub/frontend/bestteam.js"></script>
+      <div class="table-shell">
+        <table class="data-table" id="bestteam-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Team</th>
+              <th>Rating</th>
+              <th>Next Fixtures</th>
+            </tr>
+          </thead>
+          <tbody id="teams-container"></tbody>
+        </table>
+        <div id="loading" class="loading">Loading teams…</div>
+      </div>
+    </div>
+  </main>
 </body>
 </html>

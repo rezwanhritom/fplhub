@@ -1,83 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FPL HUB</title>
-    <link rel="stylesheet" href="http://localhost/fpl_hub/frontend/homepage.css">
-    <script defer src="http://localhost/fpl_hub/frontend/homepage.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPL Hub</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="homepage.css">
+  <script src="config.js"></script>
+  <script defer src="homepage.js"></script>
 </head>
-<body>
-    <header>
-        <div class="logo" onclick="navigateToHome()">FPL HUB</div>
-        <div class="auth-buttons">
-            <button onclick="location.href='http://localhost/fpl_hub/frontend/login.html'">Login</button>
-            <button onclick="location.href='http://localhost/fpl_hub/frontend/signup.html'">Sign Up</button>
+<body class="home-body">
+  <header class="site-header">
+    <div class="brand" id="brand-home">FPL Hub</div>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" type="button" id="btn-login">Login</button>
+      <button class="btn btn-primary" type="button" id="btn-signup">Sign Up</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-media" aria-hidden="true"></div>
+    <div class="hero-copy rise">
+      <h1>FPL Hub</h1>
+      <p class="hero-lead">Pick with conviction. Compare form, fixtures, and standings pulled from your own season database.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" type="button" id="cta-start">Start building</button>
+        <a class="btn btn-ghost hero-ghost" href="#matchday">This week’s fixtures</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="page home-main">
+    <section id="matchday" class="block">
+      <div class="section-head">
+        <div>
+          <h2 id="matchday-title">Matchday</h2>
+          <p id="matchday-sub">Fixtures for the current gameweek.</p>
         </div>
-    </header>
-    
-    <div class="callout">Your ultimate Fantasy Premier League assistant</div>
-    
-    <section id="matchday-news">
-        <h2>Matchday</h2>
-        <div id="matchweek"></div>
-        <div id="upcoming-matches"></div>
-    </section>    
-    <section id="pl-table">
-        <h2>Premier League Table</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Team</th>
-                    <th>Position</th>
-                    <th>Played</th>
-                    <th>Won</th>
-                    <th>Drawn</th>
-                    <th>Lost</th>
-                    <th>GF</th>
-                    <th>GA</th>
-                    <th>GD</th>
-                    <th>Points</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <span class="eyebrow" id="hero-gw-label">Loading…</span>
+      </div>
+      <p class="sr-only" id="hero-sync-meta"></p>
+      <div id="upcoming-matches" class="fixture-rail"></div>
     </section>
-    
-    
-    
-    <div class="partition-1" onclick="location.href='http://localhost/fpl_hub/frontend/signup.html'">
-        <img src=getbestresult.jpg alt="Get the Best Result">
-    </div>
-    
-    <div class="partition-container">
-        <div class="partition partition-2" onclick="location.href='http://localhost/fpl_hub/frontend/signup.html'">
-            <img src="predictpoints.jpg" alt="Player Predicting Points">
+
+    <section id="pl-table" class="block">
+      <div class="section-head">
+        <div>
+          <h2>League table</h2>
+          <p>Standings calculated from finished fixtures in your hub.</p>
         </div>
-        <div class="partition partition-3" onclick="location.href='http://localhost/fpl_hub/frontend/signup.html'">
-            <img src="analyzingfixture.jpg" alt="Analyzing Fixture">
+      </div>
+      <div class="panel table-shell">
+        <div class="table-scroll">
+          <table class="data-table" id="standings-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Team</th>
+                <th>P</th>
+                <th>W</th>
+                <th>D</th>
+                <th>L</th>
+                <th>GF</th>
+                <th>GA</th>
+                <th>GD</th>
+                <th>Pts</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
         </div>
-    </div>
-    
-    <div class="partition-container">
-        <div class="partition partition-4" onclick="location.href='http://localhost/fpl_hub/frontend/signup.html'">
-            <img src="teamcompare.jpg" alt="Team Comparison">
+        <div id="standings-detail" class="standings-detail muted"></div>
+      </div>
+    </section>
+
+    <section class="block tools-block">
+      <div class="section-head">
+        <div>
+          <h2>What you can do</h2>
+          <p>Core tools — same workflows, clearer screens.</p>
         </div>
-        <div class="partition partition-5" onclick="location.href='http://localhost/fpl_hub/frontend/signup.html'">
-            <img src="playercompare.jpg" alt="Player Comparison">
-        </div>
-    </div>
-    
-    <footer>
-        <p>&copy; 2025 FPL HUB</p>
-        <nav>
-            <a href="aboutus.html">About Us</a>
-            <a href="contactus.html">Contact Us</a>
-            <a href="t&c.html">Terms & Conditions</a>
-            <a href="pripol.html">Privacy Policy</a>
-            <a href="coopol.html">Cookie Policy</a>
-        </nav>
-    </footer>
+      </div>
+      <div class="tool-grid">
+        <a class="tool-link" href="signup.html">
+          <img src="dashpicture.jpg" alt="">
+          <span>Squad builder</span>
+        </a>
+        <a class="tool-link" href="signup.html">
+          <img src="predictpoints.jpg" alt="">
+          <span>Player stats</span>
+        </a>
+        <a class="tool-link" href="signup.html">
+          <img src="playercompare.jpg" alt="">
+          <span>Player vs player</span>
+        </a>
+        <a class="tool-link" href="signup.html">
+          <img src="teamcompare.jpg" alt="">
+          <span>Team vs team</span>
+        </a>
+        <a class="tool-link" href="signup.html">
+          <img src="analyzingfixture.jpg" alt="">
+          <span>Best fixtures</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> FPL Hub</p>
+    <nav>
+      <a href="aboutus.html">About</a>
+      <a href="contactus.html">Contact</a>
+      <a href="t&c.html">Terms</a>
+      <a href="pripol.html">Privacy</a>
+      <a href="coopol.html">Cookies</a>
+    </nav>
+  </footer>
 </body>
 </html>

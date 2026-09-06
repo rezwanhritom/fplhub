@@ -2,8 +2,6 @@
 session_start();
 require_once 'dbconnect.php';
 
-// Remove any output before JSON
-ob_clean();
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['logged_in'])) {
@@ -11,41 +9,47 @@ if (!isset($_SESSION['logged_in'])) {
     exit();
 }
 
-try {
-    $data = json_decode(file_get_contents('php://input'), true);
-    $fixtureType = $data['fixtureType'] ?? 'fdr';
-    $nextGames = (int)($data['nextGames'] ?? 1);
-    $playerStat = $data['playerStat'] ?? 'points';
+$allowedStats = [
+    'points', 'price', 'form', 'selected_by_percent', 'minutes', 'goals', 'assists',
+    'cs', 'saves', 'ppg', 'influence', 'creativity', 'threat', 'ict_index',
+    'xg_per_90', 'xa_per_90', 'xgi_per_90'
+];
 
-    // Get the latest completed gameweek
+try {
+    $data = json_decode(file_get_contents('php://input'), true) ?: [];
+    $fixtureType = $data['fixtureType'] ?? 'fdr';
+    $nextGames = max(1, (int)($data['nextGames'] ?? 1));
+    $playerStat = $data['playerStat'] ?? 'points';
+    if (!in_array($playerStat, $allowedStats, true)) {
+        $playerStat = 'points';
+    }
+
     $stmt = $pdo->query("
-        SELECT MAX(gameweek) as last_gw 
-        FROM fpl_hub_fixture_data 
+        SELECT MAX(gameweek) as last_gw
+        FROM fpl_hub_fixture_data
         WHERE status = 'Done'
     ");
-    $lastGW = $stmt->fetch(PDO::FETCH_ASSOC)['last_gw'];
-    $nextGW = $lastGW + 1;
+    $lastGW = (int)($stmt->fetch(PDO::FETCH_ASSOC)['last_gw'] ?? 0);
+    $nextGW = $lastGW > 0 ? $lastGW + 1 : 1;
 
-    // Get all players with their stats
-    $playersStmt = $pdo->prepare("
-        SELECT p.*, t.team_name 
+    $playersStmt = $pdo->query("
+        SELECT p.*, t.team_name AS joined_team_name
         FROM fpl_hub_player_data p
         JOIN fpl_hub_team_data t ON p.team_id = t.team_id
-        ORDER BY CAST(p.$playerStat AS DECIMAL(10,2)) DESC, p.web_name ASC
+        ORDER BY p.web_name ASC
     ");
-    $playersStmt->execute();
     $players = $playersStmt->fetchAll(PDO::FETCH_ASSOC);
 
     $result = [];
     foreach ($players as $player) {
-        // Get team's upcoming fixtures
         $fixturesStmt = $pdo->prepare("
-            SELECT f.*, t.* 
+            SELECT f.*, t.strength_home, t.strength_away, t.strength_home_att,
+                   t.strength_away_att, t.strength_home_def, t.strength_away_def
             FROM fpl_hub_fixture_data f
-            JOIN fpl_hub_team_data t ON f.opp_team = t.team_name
-            WHERE f.team_id = :team_id 
-            AND f.gameweek BETWEEN :next_gw AND :future_gw 
-            AND f.status != 'Done'
+            JOIN fpl_hub_team_data t ON f.opp_team_id = t.team_id
+            WHERE f.team_id = :team_id
+              AND f.gameweek BETWEEN :next_gw AND :future_gw
+              AND f.status != 'Done'
             ORDER BY f.gameweek ASC
         ");
         $fixturesStmt->execute([
@@ -55,61 +59,57 @@ try {
         ]);
         $fixtures = $fixturesStmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Calculate fixture rating
         $fixtureRating = 0;
         $fixtureDetails = [];
-        
+
         foreach ($fixtures as $fixture) {
+            $ground = strtolower((string)$fixture['ground']);
             switch ($fixtureType) {
-                case 'fdr':
-                    $fixtureRating += $fixture['fdr'];
-                    break;
                 case 'strength_home':
-                    $fixtureRating += $fixture['ground'] === 'home' ? $fixture['strength_home'] : $fixture['strength_away'];
+                    $fixtureRating += $ground === 'home' ? (float)$fixture['strength_home'] : (float)$fixture['strength_away'];
                     break;
                 case 'strength_away':
-                    $fixtureRating += $fixture['ground'] === 'away' ? $fixture['strength_away'] : $fixture['strength_home'];
+                    $fixtureRating += $ground === 'away' ? (float)$fixture['strength_away'] : (float)$fixture['strength_home'];
                     break;
                 case 'strength_home_att':
-                    $fixtureRating += $fixture['ground'] === 'home' ? $fixture['strength_home_att'] : $fixture['strength_away_att'];
+                    $fixtureRating += $ground === 'home' ? (float)$fixture['strength_home_att'] : (float)$fixture['strength_away_att'];
                     break;
                 case 'strength_away_att':
-                    $fixtureRating += $fixture['ground'] === 'away' ? $fixture['strength_away_att'] : $fixture['strength_home_att'];
+                    $fixtureRating += $ground === 'away' ? (float)$fixture['strength_away_att'] : (float)$fixture['strength_home_att'];
                     break;
                 case 'strength_home_def':
-                    $fixtureRating += $fixture['ground'] === 'home' ? $fixture['strength_home_def'] : $fixture['strength_away_def'];
+                    $fixtureRating += $ground === 'home' ? (float)$fixture['strength_home_def'] : (float)$fixture['strength_away_def'];
                     break;
                 case 'strength_away_def':
-                    $fixtureRating += $fixture['ground'] === 'away' ? $fixture['strength_away_def'] : $fixture['strength_home_def'];
+                    $fixtureRating += $ground === 'away' ? (float)$fixture['strength_away_def'] : (float)$fixture['strength_home_def'];
                     break;
+                case 'fdr':
                 default:
-                    $fixtureRating += $fixture['fdr'];
+                    $fixtureRating += (float)$fixture['fdr'];
+                    break;
             }
 
             $fixtureDetails[] = [
                 'opp_team' => $fixture['opp_team'],
-                'ground' => $fixture['ground']
+                'ground' => $ground
             ];
         }
 
         $fixtureRating = count($fixtures) > 0 ? $fixtureRating / count($fixtures) : 0;
 
-        // Add player to result array
         $result[] = [
             'web_name' => $player['web_name'],
-            'team_name' => $player['team_name'],
+            'team_name' => $player['joined_team_name'] ?: $player['team_name'],
             'fixture_rating' => $fixtureRating,
             'fixtures' => $fixtureDetails,
             'stat_value' => $player[$playerStat]
         ];
     }
 
-    // Sort players by stat value (descending) and then by fixture rating
-    usort($result, function($a, $b) use ($fixtureType) {
+    usort($result, function ($a, $b) use ($fixtureType) {
         $statCompare = $b['stat_value'] <=> $a['stat_value'];
         if ($statCompare === 0) {
-            // For FDR, lower is better; for strength metrics, higher is better
-            return $fixtureType === 'fdr' 
+            return $fixtureType === 'fdr'
                 ? $a['fixture_rating'] <=> $b['fixture_rating']
                 : $b['fixture_rating'] <=> $a['fixture_rating'];
         }
@@ -120,9 +120,7 @@ try {
         'success' => true,
         'players' => $result
     ]);
-
 } catch (Exception $e) {
-    error_log("Error in bestplayer.php: " . $e->getMessage());
+    error_log('Error in bestplayer.php: ' . $e->getMessage());
     echo json_encode(['error' => $e->getMessage()]);
 }
-?>

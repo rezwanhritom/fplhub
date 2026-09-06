@@ -1,414 +1,221 @@
-/* General Styles */
-body {
-    font-family: 'Roboto Mono', monospace;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+.home-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-/* Header */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #22ff94;
-    transition: background-color 0.3s ease;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    border-bottom: 2px solid #333;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
-header:hover {
-    background-color: #1ed87f;
+.hero {
+  position: relative;
+  min-height: min(78vh, 700px);
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1rem, 3vw, 2rem);
+  overflow: hidden;
+  color: #fff;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+.hero-media {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(20, 23, 20, 0.88) 0%, rgba(20, 23, 20, 0.55) 48%, rgba(20, 23, 20, 0.25) 100%),
+    linear-gradient(180deg, transparent 40%, rgba(20, 23, 20, 0.75) 100%),
+    url('getbestresult.jpg') center / cover no-repeat;
+  transform: scale(1.02);
+  animation: hero-drift 18s ease-in-out infinite alternate;
 }
 
-.logo:hover {
-    transform: scale(1.1);
+@keyframes hero-drift {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.06) translate3d(-1.5%, -1%, 0);
+  }
 }
 
-.auth-buttons button {
-    background-color: white;
-    color: black;
-    padding: 12px 20px;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 30px;
-    font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 34rem;
 }
 
-.auth-buttons button:hover {
-    background-color: #d161f8;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+.hero-copy h1 {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 7rem);
+  line-height: 0.88;
+  margin: 0 0 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
-/* Callout Section */
-.callout {
-    background-color: #55d6fc;
-    padding: 15px;
-    font-size: 18px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    margin-top: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border-bottom: 2px solid #333;
-    min-height: 50px;
+.hero-lead {
+  margin: 0 0 1.35rem;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.86);
+  max-width: 28rem;
 }
 
-.callout:hover {
-    background-color: #42c2e8;
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
 }
 
-/* Main Content */
-main {
-    flex: 1;
+.hero-ghost {
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #fff;
 }
 
-section {
-    padding: 20px;
-    margin: 10px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    display: block;
-    transition: transform 0.3s ease;
+.hero-ghost:hover {
+  border-color: #fff;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
 }
 
-section:hover {
-    transform: translateY(-5px);
+.home-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+  padding-top: 2rem;
 }
 
-/* Partitions */
-.partition-1 {
-    width: 80%;
-    max-width: 1200px;
-    margin: 20px auto;
-    cursor: pointer;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    background-color: white;
-    transition: transform 0.3s ease;
+.block {
+  scroll-margin-top: calc(var(--header-h) + 0.75rem);
 }
 
-.partition-1:hover {
-    transform: scale(1.02);
+.fixture-rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 0.75rem;
 }
 
-.partition-1 img {
-    width: 100%;
-    border-radius: 10px;
+.fixture-card {
+  padding: 0.95rem 1rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--turf);
+  transition: border-color 0.2s ease, transform 0.2s var(--ease);
 }
 
-.partition-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+.fixture-card:hover {
+  transform: translateY(-2px);
+  border-left-color: var(--ink);
 }
 
-.partition {
-    width: calc(50% - 20px);
-    max-width: 400px;
-    margin: 20px;
-    cursor: pointer;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    padding: 15px;
-    background-color: white;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.fixture-card .teams {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.35rem;
+  line-height: 1.1;
 }
 
-.partition:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+.fixture-card .meta {
+  color: var(--muted);
+  font-size: 0.84rem;
 }
 
-.partition img {
-    width: 100%;
-    border-radius: 10px;
+.fixture-card .status {
+  display: inline-block;
+  margin-top: 0.55rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--turf);
 }
 
-#matchday-news {
-    margin: 20px;
-    padding: 15px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.fixture-card .status.live {
+  color: var(--live);
 }
 
-/* Matchday News */
-#matchday-news {
-    margin: 20px;
-    padding: 15px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.fixture-card .status.done {
+  color: var(--muted);
 }
 
-#matchday-news h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
+.table-shell {
+  overflow: hidden;
 }
 
-#matchweek {
-    margin: 15px 0;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
+.table-scroll {
+  overflow-x: auto;
 }
 
-#upcoming-matches {
-    margin-top: 10px;
+.standings-detail {
+  margin-top: 0.85rem;
+  min-height: 1.1rem;
+  font-size: 0.88rem;
 }
 
-/* Match Item Styling */
-.match-item {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    margin: 5px 0;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    transition: background-color 0.3s ease;
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
 }
 
-.match-item:hover {
-    background-color: #e0e0e0;
+.tool-link {
+  position: relative;
+  min-height: 160px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: #111;
+  color: #fff;
 }
 
-.match-item .teams {
-    font-size: 18px;
-    font-weight: normal;
-    text-transform: capitalize;
-    margin-bottom: 5px;
+.tool-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.72;
+  transition: transform 0.45s var(--ease), opacity 0.3s ease;
+  position: absolute;
+  inset: 0;
 }
 
-.match-item .kickoff-time {
-    color: #d74bfa;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 10px;
+.tool-link span {
+  position: absolute;
+  left: 0.8rem;
+  bottom: 0.75rem;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
 }
 
-/* Countdown Timer Box - Updated to Table Style */
-.match-item .timer-box {
-    margin-top: 10px;
-    display: table;
-    width: 100%;
-    text-align: center;
+.tool-link:hover img {
+  transform: scale(1.06);
+  opacity: 0.88;
 }
 
-.match-item .timer-box table {
-    width: 100%;
-    border-collapse: collapse;
+@media (max-width: 960px) {
+  .tool-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.match-item .timer-box th,
-.match-item .timer-box td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    font-weight: bold;
-}
+@media (max-width: 560px) {
+  .tool-grid {
+    grid-template-columns: 1fr;
+  }
 
-.match-item .timer-box th {
-    background-color: #1ed87f;
-}
-
-.match-item .timer-box td {
-    background-color: #f9f9f9;
-}
-
-.match-item .timer-box .time-unit {
-    font-size: 18px;
-    color: #333;
-}
-
-/* Details Section */
-.match-item .details {
-    font-size: 14px;
-    color: #333;
-    margin-top: 5px;
-    display: none;
-}
-
-.match-item .details div {
-    margin-bottom: 5px;
-}
-
-.match-item:hover .details {
-    display: block;
-}
-
-.match-item .details .time {
-    font-weight: bold;
-}
-
-/* Make sure the timer updates dynamically without refreshing */
-.match-item:hover .timer-box {
-    display: block;
-}
-
-/* Premier League Table */
-#pl-table {
-    margin: 20px;
-    padding: 10px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    display: block;
-    position: relative;
-    overflow: hidden;
-}
-
-#pl-table h2 {
-    font-size: 24px;
-    margin-bottom: 15px; /* Space below the heading */
-    font-weight: bold;
-    color: #333; /* Make sure the text is visible */
-}
-
-#pl-table table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px; /* Ensure there’s space between the table and the heading */
-}
-
-#pl-table table th, #pl-table table td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd; /* Add column separator line */
-}
-
-#pl-table table th {
-    background-color: #1ed87f;
-    font-weight: bold;
-}
-
-#pl-table table td {
-    background-color: #fff;
-}
-
-#pl-table table tr:hover {
-    background-color: #f9f9f9;
-}
-
-.team-row {
-    cursor: pointer;
-}
-
-.home-away-stats {
-    display: none;
-    background-color: #f9f9f9;
-}
-
-.home-away {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.home, .away {
-    width: 48%;
-}
-
-.home h4, .away h4 {
-    text-align: center;
-}
-
-.home table, .away table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.home table th, .away table th, .home table td, .away table td {
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-.home table th, .away table th {
-    background-color: #d161f8;
-}
-
-.home table tr:nth-child(even), .away table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-
-/* Footer */
-footer {
-    background-color: #222;
-    color: white;
-    padding: 10px 20px;
-    margin-top: auto;
-}
-
-footer nav a {
-    color: white;
-    margin: 0 10px;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-footer nav a:hover {
-    color: #55d6fc;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-    }
-    .auth-buttons {
-        margin-top: 10px;
-    }
-    .partition-container {
-        flex-direction: column;
-    }
-    .partition-1 {
-        width: 100%;
-        margin: 10px 0;
-    }
-    .partition {
-        width: 100%;
-    }
-    .pl-table {
-        width: 95%;
-        font-size: 14px;
-    }
-    .pl-table th, .pl-table td {
-        padding: 8px;
-    }
+  .hero {
+    min-height: 70vh;
+  }
 }

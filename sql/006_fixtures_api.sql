@@ -1,0 +1,30 @@
+-- Source API: GET /api/fixtures/
+-- One row per team perspective (home + away) for existing UI queries
+CREATE TABLE IF NOT EXISTS fpl_hub_fixture_data (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  fixture_id INT UNSIGNED NOT NULL COMMENT 'Official FPL fixture id',
+  team_name VARCHAR(100) NOT NULL,
+  gameweek INT UNSIGNED NULL,
+  opp_team VARCHAR(100) NOT NULL,
+  team_id INT UNSIGNED NOT NULL,
+  opp_team_id INT UNSIGNED NOT NULL,
+  fdr_id VARCHAR(32) NOT NULL DEFAULT '',
+  ground ENUM('home','away') NOT NULL,
+  status VARCHAR(16) NOT NULL DEFAULT 'Not Done',
+  team_score INT NULL,
+  opp_score INT NULL,
+  result VARCHAR(8) NULL,
+  team_diff INT NOT NULL DEFAULT 0,
+  opp_diff INT NOT NULL DEFAULT 0,
+  fdr INT NOT NULL DEFAULT 0,
+  kickoff_time DATETIME NULL,
+  finished TINYINT(1) NOT NULL DEFAULT 0,
+  started TINYINT(1) NOT NULL DEFAULT 0,
+  pyfy VARCHAR(16) NULL,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_fixture_team (fixture_id, team_id),
+  KEY idx_fixture_team_gw (team_id, gameweek),
+  KEY idx_fixture_status (status),
+  KEY idx_fixture_kickoff (kickoff_time)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

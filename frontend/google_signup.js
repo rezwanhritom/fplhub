@@ -1,64 +1,51 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const usernameInput = document.getElementById("username");
-    const submitButton = document.getElementById("submitBtn");
-    const usernameError = document.getElementById("usernameError");
-    const signupForm = document.getElementById("signupForm");
+document.addEventListener('DOMContentLoaded', function () {
+  const usernameInput = document.getElementById('username');
+  const submitButton = document.getElementById('submitBtn');
+  const usernameError = document.getElementById('usernameError');
+  const signupForm = document.getElementById('signupForm');
 
-    // Function to validate username availability
-    function checkUsernameAvailability() {
-        const username = usernameInput.value.trim();
+  signupForm.action = FPLHUB.url('google_signup.php');
 
-        // Ensure the submit button is disabled by default
-        submitButton.disabled = true;
+  function checkUsernameAvailability() {
+    const username = usernameInput.value.trim();
+    submitButton.disabled = true;
 
-        // If the username is empty, reset the error and leave the button disabled
-        if (username === "") {
-            usernameError.textContent = "";
-            return;
-        }
-
-        // Send AJAX request to check if username exists
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://localhost/fpl_hub/check_username.php", true); // Correct URL
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        xhr.onload = function () {
-            console.log(xhr.responseText); // Debugging: log the response
-            if (xhr.status === 200) {
-                const response = xhr.responseText.trim();
-                if (response === "Database connection successful!taken") {
-                    usernameError.textContent = "Username is already taken. Please choose another.";
-                    submitButton.disabled = true; // Keep it disabled
-                } else if (response === "Database connection successful!available") {
-                    usernameError.textContent = ""; // Clear error
-                    submitButton.disabled = false; // Enable submit button
-                } else {
-                    usernameError.textContent = "Error checking username availability.";
-                    submitButton.disabled = true;
-                }
-            } else {
-                usernameError.textContent = "Error checking username availability.";
-                submitButton.disabled = true;
-            }
-        };        
-
-        xhr.onerror = function () {
-            usernameError.textContent = "Network error. Please try again later.";
-        };
-
-        xhr.send("username=" + encodeURIComponent(username));
+    if (username === '') {
+      usernameError.textContent = '';
+      return;
     }
 
-    // Event listener for blur event (when the username field loses focus)
-    usernameInput.addEventListener("blur", checkUsernameAvailability);
-
-    // Also check username availability on form input to ensure button reacts immediately
-    usernameInput.addEventListener("input", checkUsernameAvailability);
-
-    // Prevent form submission if there's an error
-    signupForm.addEventListener("submit", function (e) {
-        if (usernameError.textContent !== "") {
-            e.preventDefault(); // Prevent form submission if there's an error
+    fetch(FPLHUB.url('check_username.php'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'username=' + encodeURIComponent(username),
+    })
+      .then((r) => r.text())
+      .then((text) => {
+        const response = text.trim();
+        if (response.includes('taken')) {
+          usernameError.textContent = 'Username is already taken. Please choose another.';
+          submitButton.disabled = true;
+        } else if (response.includes('available')) {
+          usernameError.textContent = '';
+          submitButton.disabled = false;
+        } else {
+          usernameError.textContent = 'Error checking username availability.';
+          submitButton.disabled = true;
         }
-    });
+      })
+      .catch(() => {
+        usernameError.textContent = 'Network error. Please try again later.';
+        submitButton.disabled = true;
+      });
+  }
+
+  usernameInput.addEventListener('blur', checkUsernameAvailability);
+  usernameInput.addEventListener('input', checkUsernameAvailability);
+
+  signupForm.addEventListener('submit', function (e) {
+    if (usernameError.textContent !== '') {
+      e.preventDefault();
+    }
+  });
 });

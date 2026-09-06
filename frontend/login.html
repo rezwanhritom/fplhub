@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - FPL HUB</title>
-    <link rel="stylesheet" href="http://localhost/fpl_hub/frontend/login.css">
-    <script src="http://localhost/fpl_hub/frontend/login.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login · FPL Hub</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="auth.css">
+  <script src="config.js"></script>
+  <script defer src="login.js"></script>
 </head>
-<body>
-    <div class="login-container">
-        <h2>Login to FPL HUB</h2>
-        <form id="login-form" method="POST" action="http://localhost/fpl_hub/login.php">
-            <div class="form-group">
-                <input type="text" id="username" name="username" placeholder="username" required>
-                <p id="username-error" class="error"></p>
-            </div>
-            <div class="form-group">
-                <input type="password" id="password" name="password" placeholder="password" required>
-                <p id="password-error" class="error"></p>
-            </div>
-            <button type="submit" class="login-btn" disabled>Login</button>
-            <div class="signup-link">
-                <p>Don't have an account? <a href="http://localhost/fpl_hub/frontend/signup.html">Sign Up</a></p>
-            </div>
-        </form>
-        <button class="google-btn" onclick="window.location='http://localhost/fpl_hub/google_login.php'">Continue with Google</button>
-    </div>
+<body class="auth-body">
+  <header class="site-header">
+    <a class="brand" href="homepage.html">FPL Hub</a>
+  </header>
+  <main class="auth-wrap">
+    <section class="auth-panel rise">
+      <p class="eyebrow">Welcome back</p>
+      <h1>Login</h1>
+      <p class="muted auth-sub">Jump into your squad board and live season data.</p>
+      <form id="login-form" method="POST" action="http://localhost/fpl_hub/backend/login.php">
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" autocomplete="username" required>
+          <p id="username-error" class="error"></p>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required>
+          <p id="password-error" class="error"></p>
+        </div>
+        <button type="submit" class="btn btn-primary auth-submit" disabled>Login</button>
+      </form>
+      <p class="auth-switch muted">No account? <a href="signup.html">Sign up</a></p>
+      <button class="btn btn-ghost auth-google" type="button" id="google-login">Continue with Google</button>
+    </section>
+  </main>
 </body>
 </html>

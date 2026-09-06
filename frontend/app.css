@@ -1,0 +1,235 @@
+/* Shared tool-page styles */
+
+.tool-body,
+.content-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.tool-main,
+.content-main {
+  flex: 1;
+}
+
+.table-shell {
+  overflow: auto;
+}
+
+.loading {
+  text-align: center;
+  padding: 1.75rem 1rem;
+  color: var(--muted);
+}
+
+.status-available {
+  color: var(--turf);
+  font-weight: 700;
+}
+
+.status-suspended,
+.status-unavailable {
+  color: var(--live);
+  font-weight: 700;
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.85rem;
+}
+
+.compare-card {
+  position: relative;
+  min-height: 200px;
+  overflow: visible;
+}
+
+.add-slot {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 180px;
+  cursor: pointer;
+  width: 100%;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.plus-icon {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--turf);
+  line-height: 1;
+}
+
+.picker {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92%, 280px);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  max-height: 340px;
+  overflow: hidden;
+  z-index: 40;
+}
+
+.picker input {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  padding: 0.75rem 0.9rem;
+  outline: none;
+}
+
+.picker-list {
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 0.3rem;
+}
+
+.picker-item {
+  padding: 0.6rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.picker-item:hover {
+  background: var(--turf-soft);
+  color: var(--turf-deep);
+}
+
+.card-stats {
+  width: 100%;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.card-header .player-name,
+.card-header .team-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+}
+
+.remove-player,
+.remove-team {
+  background: none;
+  border: 0;
+  color: var(--live);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.stats-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.stat-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.65rem;
+  align-items: center;
+  font-size: 0.88rem;
+}
+
+.stat-name {
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stat-value {
+  text-align: right;
+  font-weight: 700;
+}
+
+.highest-stat {
+  background: var(--turf);
+  color: #fff;
+  padding: 0.12rem 0.45rem;
+  border-radius: 3px;
+}
+
+.fixtures-list {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.fixture-item {
+  padding: 0.2rem 0.45rem;
+  border-radius: 3px;
+  background: var(--turf-soft);
+  border: 1px solid var(--line);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1 1 150px;
+}
+
+.filter-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.content-panel h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  margin: 0 0 0.65rem;
+  text-transform: uppercase;
+}
+
+.content-panel h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  margin: 1.35rem 0 0.45rem;
+  text-transform: uppercase;
+  color: var(--turf);
+}
+
+.content-panel p,
+.content-panel li {
+  color: var(--ink-soft);
+  max-width: 68ch;
+}
+
+.content-panel ul {
+  padding-left: 1.15rem;
+}
+
+.content-panel a {
+  color: var(--turf);
+  font-weight: 600;
+}
