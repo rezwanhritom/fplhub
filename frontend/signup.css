@@ -1,0 +1,178 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto Mono', monospace;
+    background: linear-gradient(to right, #1ed87f, #42c2e8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 10;
+}
+
+/* Signup Container */
+.signup-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 380px;  /* Increased width for better spacing */
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Form Fields */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+input {
+    width: 90%;  /* Ensures all fields are same width */
+    padding: 12px;
+    margin: 6px 0;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    font-size: 15px;
+    transition: 0.3s;
+    text-align: center; /* Centered text inside inputs */
+}
+
+/* Focused Input Fields */
+input:focus {
+    border-color: #1ed87f;
+    outline: none;
+    transform: scale(1.03);
+    box-shadow: 0 0 8px rgba(30, 216, 127, 0.5);
+}
+
+/* Error Message */
+.error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    text-align: left;
+    margin-top: 5px;
+    visibility: hidden;  /* Initially hidden */
+    opacity: 0;          /* Initially invisible */
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    text-align: center;
+}
+
+/* Show Error Message when validation fails */
+.error-message {
+    visibility: visible;
+    opacity: 1;          /* Changed from opacity 10 */
+}
+
+
+/* Signup Button */
+.signupBtn {
+    background: #1ed87f;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 95%;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.signupBtn:hover {
+    background: #42c2e8;
+    transform: scale(1.05);
+}
+
+/* Google Sign-in Button */
+.google-signin {
+    background: rgb(94, 201, 243);
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 95%;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.google-signin:hover {
+    background: #1ed87f;
+    color: rgb(0, 0, 0);
+    transform: scale(1.05);
+}
+
+/* OR Divider */
+.or-divider {
+    margin: 15px 0;
+    font-size: 14px;
+    color: darkgrey;
+}
+
+/* Login Link */
+.login-link {
+    margin-top: 15px;
+    font-size: 14px;
+    color: darkgrey;
+}
+
+.login-link a {
+    color: #1ed87f;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.login-link a:hover {
+    color: #42c2e8;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Password Strength Indicator */
+.password-strength {
+    font-size: 14px;
+    color: #ff4d4d;
+    margin-top: 10px;
+    visibility: hidden; /* Initially hidden */
+    opacity: 0;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Show Password Strength when checking */
+.password-strength.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+#password-strength-bar {
+    width: 100%;
+    height: 10px;
+    background: #ddd;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+#password-strength-bar[value="1"] { background: red; }
+#password-strength-bar[value="2"] { background: orange; }
+#password-strength-bar[value="3"] { background: yellow; }
+#password-strength-bar[value="4"] { background: green; }
+
+#password-strength-text {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - FPL HUB</title>
+    <link rel="stylesheet" href="http://localhost/fpl_hub/frontend/signup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script defer src="http://localhost/fpl_hub/frontend/signup.js"></script> <!-- JavaScript for validation -->
+</head>
+<body>
+
+<div class="signup-container">
+    <h2>Create Your Account</h2>
+    
+    <form id="signup-form" action="http://localhost/fpl_hub/signup.php" method="POST">
+        <input type="text" id="fullname" name="fullname" placeholder="Full Name" required>
+    
+        <input type="text" id="username" name="username" placeholder="Username" required>
+        <span id="usernameError" class="error-message"></span>
+
+        <input type="email" id="email" name="email" placeholder="Email Address" required>
+    
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <div id="passwordStrength">
+            <progress id="password-strength-bar" max="100" value="0"></progress>
+            <div id="passwordCriteria"></div>
+        </div>        
+
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+        <span id="passwordError" class="error-message"></span>
+
+        <input type="text" id="fantasy_team" name="fantasy_team" placeholder="Fantasy Team Name" required>
+    
+        <button type="submit" id = "submitBtn" class="signupBtn" disabled>Sign Up</button>
+    </form>
+
+    <p class="login-link">Already a user? <a href="http://localhost/fpl_hub/frontend/login.html">Log in.</a></p>
+    
+    <button onclick="location.href='http://localhost/fpl_hub/google_login.php'" class="google-signin">Continue with Google</button>
+
+</div>
+
+</body>
+</html>

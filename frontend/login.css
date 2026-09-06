@@ -1,0 +1,138 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Global Styles */
+body {
+    font-family: 'Roboto Mono', monospace;
+    background: linear-gradient(to right, #1ed87f, #42c2e8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 380px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+h2 {
+    color: #1ed87f;
+}
+
+.form-group {
+    margin: 15px 0;
+    text-align: left;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 6px 0;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    font-size: 15px;
+    transition: 0.3s;
+    text-align: center;
+}
+
+input:focus {
+    border-color: #1ed87f;
+    outline: none;
+    transform: scale(1.03);
+    box-shadow: 0 0 8px rgba(30, 216, 127, 0.5);
+}
+
+.error {
+    color: #ff4d4d;
+    font-size: 14px;
+    text-align: left;
+    margin-top: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.error.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.login-btn {
+    background: #1ed87f;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 95%;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: #42c2e8;
+    transform: scale(1.05);
+}
+
+.signup-link {
+    margin-top: 15px;
+    font-size: 14px;
+    color: darkgrey;
+}
+
+.signup-link a {
+    color: #1ed87f;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.signup-link a:hover {
+    color: #42c2e8;
+}
+
+/* Google Login Button */
+.google-btn {
+    background: #42c2e8;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 95%;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.google-btn:hover {
+    background: #1ed87f;
+    transform: scale(1.05);
+}
+
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,107 @@
+/* Google Sign-Up Page Styles */
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Background Styling */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #1ed87f, #42c2e8);
+}
+
+/* Container Box */
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Heading */
+h2 {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Labels */
+label {
+    display: block;
+    font-weight: 600;
+    text-align: left;
+    margin: 10px 0 5px;
+    color: #444;
+}
+
+/* Input Fields */
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Input Field Hover & Focus */
+input:focus {
+    border-color: #1ed87f;
+    outline: none;
+    box-shadow: 0 0 5px rgba(30, 216, 127, 0.5);
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #1ed87f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+/* Button Hover Effect */
+button:hover {
+    background: #159e5f;
+    box-shadow: 0px 4px 10px rgba(30, 216, 127, 0.4);
+}
+
+/* Disabled Button */
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Error Message Styling */
+.error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+}

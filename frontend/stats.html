@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPL Hub - Player Statistics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://localhost/fpl_hub/frontend/stats.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="dash.html">FPL HUB</a>
+        </div>
+        <div class="user-profile">
+            <div class="dropdown">
+                <button class="user-icon">👤</button>
+                <div class="dropdown-content">
+                    <a href="../profile.php">Edit Profile</a>
+                    <a href="http://localhost/fpl_hub/logout.php">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="filters">
+            <select id="position-filter" class="filter-select">
+                <option value="ALL">All Positions</option>
+                <option value="GKP">Goalkeeper</option>
+                <option value="DEF">Defender</option>
+                <option value="MID">Midfielder</option>
+                <option value="FOR">Forward</option>
+            </select>
+
+            <select id="team-filter" class="filter-select">
+                <option value="ALL">All Teams</option>
+                <option value="Arsenal">Arsenal</option>
+                <option value="Aston Villa">Aston Villa</option>
+                <option value="Bournemouth">Bournemouth</option>
+                <option value="Brentford">Brentford</option>
+                <option value="Brighton">Brighton</option>
+                <option value="Chelsea">Chelsea</option>
+                <option value="Crystal Palace">Crystal Palace</option>
+                <option value="Everton">Everton</option>
+                <option value="Fulham">Fulham</option>
+                <option value="Ipswich">Ipswich</option>
+                <option value="Leicester">Leicester</option>
+                <option value="Liverpool">Liverpool</option>
+                <option value="Man City">Man City</option>
+                <option value="Man Utd">Man Utd</option>
+                <option value="Newcastle">Newcastle</option>
+                <option value="Nott'm Forest">Nott'm Forest</option>
+                <option value="Southampton">Southampton</option>
+                <option value="Spurs">Spurs</option>
+                <option value="West Ham">West Ham</option>
+                <option value="Wolves">Wolves</option>
+            </select>
+
+            <select id="stat-filter" class="filter-select">
+                <option value="points">Points</option>
+                <option value="form">Form</option>
+                <option value="minutes">Minutes</option>
+                <option value="goals">Goals</option>
+                <option value="assists">Assists</option>
+                <option value="cs">Clean Sheets</option>
+                <option value="saves">Saves</option>
+                <option value="yc">Yellow Cards</option>
+                <option value="rc">Red Cards</option>
+                <option value="tout">Transfer Out</option>
+                <option value="tout_event">Transfer Out Event</option>
+                <option value="tin">Transfer In</option>
+                <option value="tin_event">Transfer In Event</option>
+                <option value="selected_by_percent">Selected By %</option>
+                <option value="cost_change_event">Cost Change Event</option>
+                <option value="cost_change_event_fall">Cost Change Event Fall</option>
+                <option value="cost_change_start">Cost Change Start</option>
+                <option value="cost_change_start_fall">Cost Change Start Fall</option>
+                <option value="dreamteam_count">Dreamteam Count</option>
+                <option value="ppg">Points Per Game</option>
+                <option value="value_form">Value Form</option>
+                <option value="value_season">Value Season</option>
+                <option value="influence">Influence</option>
+                <option value="creativity">Creativity</option>
+                <option value="threat">Threat</option>
+                <option value="ict_index">ICT Index</option>
+                <option value="influence_rank">Influence Rank</option>
+                <option value="influence_rank_type">Influence Rank Type</option>
+                <option value="creativity_rank">Creativity Rank</option>
+                <option value="creativity_rank_type">Creativity Rank Type</option>
+                <option value="threat_rank">Threat Rank</option>
+                <option value="threat_rank_type">Threat Rank Type</option>
+                <option value="ict_index_rank">ICT Index Rank</option>
+                <option value="ict_index_rank_type">ICT Index Rank Type</option>
+                <option value="corners_and_indirect_freekicks_order">Corners & Indirect FK Order</option>
+                <option value="direct_freekicks_order">Direct FK Order</option>
+                <option value="penalties_order">Penalties Order</option>
+                <option value="xg_per_90">xG per 90</option>
+                <option value="saves_per_90">Saves per 90</option>
+                <option value="xa_per_90">xA per 90</option>
+                <option value="xgi_per_90">xGI per 90</option>
+                <option value="xgc_90">xGC 90</option>
+                <option value="gc_per_90">GC per 90</option>
+                <option value="now_cost_rank">Cost Rank</option>
+                <option value="now_cost_rank_type">Cost Rank Type</option>
+                <option value="form_rank">Form Rank</option>
+                <option value="form_rank_type">Form Rank Type</option>
+                <option value="points_per_game_rank">PPG Rank</option>
+                <option value="points_per_game_rank_type">PPG Rank Type</option>
+                <option value="selected_rank">Selected Rank</option>
+                <option value="selected_rank_type">Selected Rank Type</option>
+                <option value="starts_per_90">Starts per 90</option>
+                <option value="cs_per_90">CS per 90</option>
+                <option value="pyfy">PYFY</option>
+            </select>
+        </div>
+
+        <div class="stats-container">
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Status</th>
+                        <th>News</th>
+                        <th class="stat-header">Statistic</th>
+                    </tr>
+                </thead>
+                <tbody id="players-container">
+                </tbody>
+            </table>
+            <div id="loading" class="loading">Loading players...</div>
+        </div>
+    </main>
+
+    <script src="http://localhost/fpl_hub/frontend/stats.js"></script>
+</body>
+</html>

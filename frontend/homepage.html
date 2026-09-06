@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPL HUB</title>
+    <link rel="stylesheet" href="http://localhost/fpl_hub/frontend/homepage.css">
+    <script defer src="http://localhost/fpl_hub/frontend/homepage.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="navigateToHome()">FPL HUB</div>
+        <div class="auth-buttons">
+            <button onclick="location.href='http://localhost/fpl_hub/frontend/login.html'">Login</button>
+            <button onclick="location.href='http://localhost/fpl_hub/frontend/signup.html'">Sign Up</button>
+        </div>
+    </header>
+    
+    <div class="callout">Your ultimate Fantasy Premier League assistant</div>
+    
+    <section id="matchday-news">
+        <h2>Matchday</h2>
+        <div id="matchweek"></div>
+        <div id="upcoming-matches"></div>
+    </section>    
+    <section id="pl-table">
+        <h2>Premier League Table</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>Position</th>
+                    <th>Played</th>
+                    <th>Won</th>
+                    <th>Drawn</th>
+                    <th>Lost</th>
+                    <th>GF</th>
+                    <th>GA</th>
+                    <th>GD</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
+    
+    
+    
+    <div class="partition-1" onclick="location.href='http://localhost/fpl_hub/frontend/signup.html'">
+        <img src=getbestresult.jpg alt="Get the Best Result">
+    </div>
+    
+    <div class="partition-container">
+        <div class="partition partition-2" onclick="location.href='http://localhost/fpl_hub/frontend/signup.html'">
+            <img src="predictpoints.jpg" alt="Player Predicting Points">
+        </div>
+        <div class="partition partition-3" onclick="location.href='http://localhost/fpl_hub/frontend/signup.html'">
+            <img src="analyzingfixture.jpg" alt="Analyzing Fixture">
+        </div>
+    </div>
+    
+    <div class="partition-container">
+        <div class="partition partition-4" onclick="location.href='http://localhost/fpl_hub/frontend/signup.html'">
+            <img src="teamcompare.jpg" alt="Team Comparison">
+        </div>
+        <div class="partition partition-5" onclick="location.href='http://localhost/fpl_hub/frontend/signup.html'">
+            <img src="playercompare.jpg" alt="Player Comparison">
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 FPL HUB</p>
+        <nav>
+            <a href="aboutus.html">About Us</a>
+            <a href="contactus.html">Contact Us</a>
+            <a href="t&c.html">Terms & Conditions</a>
+            <a href="pripol.html">Privacy Policy</a>
+            <a href="coopol.html">Cookie Policy</a>
+        </nav>
+    </footer>
+</body>
+</html>

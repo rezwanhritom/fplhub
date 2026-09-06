@@ -1,0 +1,23 @@
+# Secrets & local config
+.env
+backend/.env
+backend/credentials.json
+backend/token.json
+backend/oauth_client_credentials.json
+
+# Dependencies
+backend/vendor/
+
+# Logs & junk
+*.log
+debug.log
+debug_log.txt
+backend/debug.log
+backend/debug_log.txt
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
